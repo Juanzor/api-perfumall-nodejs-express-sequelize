@@ -31,7 +31,9 @@ const controller = {
     getProduct: async (req, res) => {
         const { id } = req.params;
         try {
-            const response = await db.Producto.findByPk(id, { include: "marca" });
+            const response = await db.Producto.findByPk(id, {
+                include: "marca",
+            });
             return res.json(response);
         } catch (error) {
             console.log(error);
@@ -41,26 +43,28 @@ const controller = {
     getLastProduct: async (req, res) => {
         try {
             const response = await db.Producto.findOne({
-
-
-                order: [
-
-                    ['id', 'DESC']
-                ]
-
-
-            }
-            )
-            return res.json(response)
-
-
+                order: [["id", "DESC"]],
+            });
+            return res.json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: error.message });
-
-
         }
-    }
+    },
+
+    getVentas: async (req, res) => {
+        try {
+            const ventas = await db.Venta.findAll({
+                include: "detalle_venta",
+            });
+
+            res.json({ ventas });
+        } catch (error) {
+            res.json({ error: error.message });
+        }
+
+        // const detalle_venta = await db.Detalle_venta.findAll();
+    },
 };
 
 module.exports = controller;

@@ -1,4 +1,3 @@
-const { response } = require("express");
 const db = require("../database/models");
 
 const controller = {
@@ -39,26 +38,14 @@ const controller = {
     getLastUser: async (req, res) => {
         try {
             const response = await db.User.findOne({
-
-
-                order: [
-
-                    ['id', 'DESC']
-                ]
-
-
-            }
-            )
-            return res.json(response)
-
-
+                order: [["id", "DESC"]],
+            });
+            return res.json(response);
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: error.message });
-
-
         }
-    }
+    },
 };
 
 module.exports = controller;
