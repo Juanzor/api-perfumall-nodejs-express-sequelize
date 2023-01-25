@@ -15,6 +15,4 @@ app.get("/", async (req, res) => {
     const response = await db.Producto.findAll();
     res.json(response);
 });
-app.listen(4000, () =>
-    console.log("http://localhost:4000/perfumall/api/v1/users")
-);
+app.listen(process.env.DB_PORT || 4000);
